@@ -30,7 +30,7 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"))
 }
 
-app.use(express.static(path.resolve(__dirname, "/public")))
+app.use(express.static(path.resolve(__dirname, "./public")))
 
 app.use(express.json())
 app.use(cookieParser())
@@ -45,7 +45,7 @@ app.use("/api/v1/store", authenticateUser, storeRouter)
 app.use("/api/v1/customer", authenticateUser, customerRouter)
 
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "/public", "index.html"))
+  res.sendFile(path.resolve(__dirname, "./public", "index.html"))
 })
 
 app.use("*", (req, res) => {
