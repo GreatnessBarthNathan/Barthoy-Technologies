@@ -46,7 +46,7 @@ const morgan_1 = __importDefault(require("morgan"));
 const helmet_1 = __importDefault(require("helmet"));
 const app = (0, express_1.default)();
 // middlewares
-// import notFoundError from "./middleware/notFound"
+const notFound_1 = __importDefault(require("./middleware/notFound"));
 const errorHandler_1 = __importDefault(require("./middleware/errorHandler"));
 const authMiddleware_1 = require("./middleware/authMiddleware");
 // routers
@@ -61,6 +61,7 @@ if (process.env.NODE_ENV === "development") {
     app.use((0, morgan_1.default)("dev"));
 }
 app.use(express_1.default.static(path_1.default.resolve(__dirname, "./public")));
+// app.use(express.static("./public"))
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
 app.use((0, helmet_1.default)());
@@ -74,10 +75,10 @@ app.use("/api/v1/customer", authMiddleware_1.authenticateUser, customerRoutes_1.
 app.get("*", (req, res) => {
     res.sendFile(path_1.default.resolve(__dirname, "./public", "index.html"));
 });
-app.use("*", (req, res) => {
-    res.status(404).json({ msg: "not found" });
-});
-// app.use(notFoundError)
+// app.use("*", (req, res) => {
+//   res.status(404).json({ msg: "not found" })
+// })
+app.use(notFound_1.default);
 app.use(errorHandler_1.default);
 const port = process.env.PORT || 4000;
 const start = () => __awaiter(void 0, void 0, void 0, function* () {

@@ -13,7 +13,7 @@ import helmet from "helmet"
 const app = express()
 
 // middlewares
-// import notFoundError from "./middleware/notFound"
+import notFoundError from "./middleware/notFound"
 import errorHandler from "./middleware/errorHandler"
 import { authenticateUser } from "./middleware/authMiddleware"
 
@@ -29,8 +29,8 @@ import customerRouter from "./routes/customerRoutes"
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"))
 }
-
 app.use(express.static(path.resolve(__dirname, "./public")))
+// app.use(express.static("./public"))
 
 app.use(express.json())
 app.use(cookieParser())
@@ -48,11 +48,11 @@ app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "./public", "index.html"))
 })
 
-app.use("*", (req, res) => {
-  res.status(404).json({ msg: "not found" })
-})
+// app.use("*", (req, res) => {
+//   res.status(404).json({ msg: "not found" })
+// })
 
-// app.use(notFoundError)
+app.use(notFoundError)
 
 app.use(errorHandler)
 
