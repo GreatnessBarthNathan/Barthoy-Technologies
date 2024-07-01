@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect } from "react"
 import { redirect, useLoaderData, useNavigate } from "react-router-dom"
 import { Outlet, useNavigation } from "react-router-dom"
 import BigSidebar from "../components/BigSidebar"
+import SmallSidebar from "../components/SmallSidebar"
 import Navbar from "../components/Navbar"
 import Loading from "../components/Loading"
 import customFetch from "../utils/customFetch"
@@ -18,6 +19,8 @@ type ValueTypes = {
   logout: () => void
   fetchExpenses: () => Promise<ExpenseType[]>
   fetchOrders: () => Promise<OrderType[]>
+  showSidebar: boolean
+  setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const loader = async () => {
@@ -46,6 +49,7 @@ function DashboardLayout() {
     useLoaderData() as CombinedTypes
   const [submitting] = useState(false)
   const [products, setProducts] = useState<ProductTypes[]>([])
+  const [showSidebar, setShowSidebar] = useState(true)
 
   const navigate = useNavigate()
 
@@ -123,6 +127,8 @@ function DashboardLayout() {
     logout,
     fetchExpenses,
     fetchOrders,
+    setShowSidebar,
+    showSidebar,
   }
   return (
     <>
@@ -130,6 +136,7 @@ function DashboardLayout() {
         <main className='grid lg:grid-cols-5 h-[100dvh] overflow-hidden'>
           <BigSidebar />
           <div className='lg:col-span-4 overflow-auto'>
+            <SmallSidebar />
             <Navbar />
             <div className='p-2 lg:p-10 relative'>
               {isLoading ? <Loading /> : <Outlet />}

@@ -38,7 +38,7 @@ function SingleOrderItem({
   }
   return (
     <div
-      className={`grid grid-cols-8 gap-2 mt-2 rounded p-2 shadow ${
+      className={`grid grid-cols-8 gap-2 ${
         returned ? "bg-red-100 text-slate-500" : "bg-white"
       }`}
     >

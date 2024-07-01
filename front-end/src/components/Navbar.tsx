@@ -1,25 +1,19 @@
 import { FaAlignLeft } from "react-icons/fa"
 import Logo from "./Logo"
 import Logout from "./Logout"
-// import { useDashboardContext } from "../pages/DashboardLayout"
+import { useDashboardContext } from "../pages/DashboardLayout"
 
 const Navbar = () => {
-  // const {
-  // showBigSidebar,
-  // setShowBigSidebar,
-  // showSmallSidebar,
-  // setShowSmallSidebar,
-  // } = useDashboardContext()
+  const { showSidebar, setShowSidebar } = useDashboardContext()
   return (
     <div
       className={`flex justify-between items-center p-3 px-2 lg:px-5 h-[80px] md:h-[100px] bg-white w-full sticky top-0 z-10`}
     >
       <button
         className='text-xl md:text-3xl text-indigo-500 hover:text-indigo-800 ease-in-out duration-300 lg:opacity-0'
-        // onClick={() => {
-        //   setShowBigSidebar(!showBigSidebar)
-        //   setShowSmallSidebar(!showSmallSidebar)
-        // }}
+        onClick={() => {
+          setShowSidebar(!showSidebar)
+        }}
       >
         <FaAlignLeft />
       </button>

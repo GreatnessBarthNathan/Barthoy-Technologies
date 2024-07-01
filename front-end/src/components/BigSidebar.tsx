@@ -11,7 +11,6 @@ import { TbLockCheck } from "react-icons/tb"
 import Logo from "./Logo"
 
 const BigSidebar = () => {
-  // const { showBigSidebar, user } = useDashboardContext()
   const { currentUser } = useDashboardContext()
 
   return (
