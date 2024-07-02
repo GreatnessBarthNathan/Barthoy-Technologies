@@ -49,7 +49,7 @@ function DashboardLayout() {
     useLoaderData() as CombinedTypes
   const [submitting] = useState(false)
   const [products, setProducts] = useState<ProductTypes[]>([])
-  const [showSidebar, setShowSidebar] = useState(true)
+  const [showSidebar, setShowSidebar] = useState(false)
 
   const navigate = useNavigate()
 

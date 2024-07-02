@@ -12,6 +12,7 @@ import Logo from "./Logo"
 
 const SmallSidebar = () => {
   const { showSidebar, setShowSidebar, currentUser } = useDashboardContext()
+
   return (
     <>
       {showSidebar && (

@@ -66,6 +66,7 @@ function AllOrders() {
   // FILTER ORDERS
   const searchOrders = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setLoading(true)
     const from = new FormData(e.currentTarget).get("from")
     const to = new FormData(e.currentTarget).get("to")
 
@@ -98,6 +99,7 @@ function AllOrders() {
         (expense.enteredAt as string) <= to
     )
     setDisplayedExpenses(newExpenses)
+    setLoading(false)
   }
 
   // CALCULATE PROFIT
@@ -169,22 +171,6 @@ function AllOrders() {
               <h1 className='text-center font-bold'>No orders available</h1>
             ) : (
               <>
-                {/* <div className='mt-2 grid grid-cols-7 sticky top-0 border border-white border-b-slate-600 border-t-slate-600 p-1 md:p-2 font-bold bg-white '>
-                  <h2 className='col-span-2 text-[8px] md:text-xs lg:text-base p-1 md:p-2 text-left'>
-                    Customer
-                  </h2>
-                  <h2 className='col-span-1 text-[8px] md:text-xs lg:text-base text-left p-1 md:p-2'>
-                    Items
-                  </h2>
-                  <h2 className='col-span-2 text-[8px] md:text-xs lg:text-base text-left p-1 md:p-2'>
-                    Amount
-                  </h2>
-                  <h2 className='col-span-2 text-[8px] md:text-xs lg:text-base text-left p-1 md:p-2'>
-                    Date
-                  </h2>
-                </div> */}
-                {/* PRODUCTS */}
-
                 <div>
                   {orders?.map((order) => {
                     return <SingleOrder key={order._id} {...order} />

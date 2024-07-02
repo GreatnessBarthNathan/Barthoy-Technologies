@@ -43,10 +43,6 @@ export const updateUser = async (req: AuthenticatedRequest, res: Response) => {
   if (!firstName || !lastName || !userName)
     throw new BadRequestError("Please provide all values")
 
-  // const existingUser = await User.findOne({ userName })
-  // if (existingUser)
-  //   throw new BadRequestError("Username already taken. Select another")
-
   const user = await User.findOne({ _id: req.params.id })
   if (!user) throw new NotFoundError(`No user found with id: ${req.params.id}`)
 

@@ -38,7 +38,7 @@ function SingleOrderItem({
   }
   return (
     <div
-      className={`grid grid-cols-8 gap-2 ${
+      className={`grid grid-cols-10 gap-2 ${
         returned ? "bg-red-100 text-slate-500" : "bg-white"
       }`}
     >
@@ -46,7 +46,7 @@ function SingleOrderItem({
         {name}
       </h2>
       <h2 className='p-2 text-[8px] md:text-base'>{pcs}</h2>
-      <h2 className='col-span-1 p-2 text-[8px] md:text-base'>
+      <h2 className='col-span-2 p-2 text-[8px] md:text-base'>
         {new Intl.NumberFormat("en-NG", {
           style: "currency",
           currency: "NGN",
@@ -58,7 +58,7 @@ function SingleOrderItem({
           currency: "NGN",
         }).format(subTotal)}
       </h2>
-      <div className='p-2 flex justify-between items-center text-[8px] space-x-1 md:text-base'>
+      <div className='col-span-2 p-2 flex justify-between items-center text-[8px] space-x-1 md:text-base'>
         <h2>{returned ? "true" : "false"}</h2>
         <button
           onClick={() => returnItem(orderId as string, productId as string)}

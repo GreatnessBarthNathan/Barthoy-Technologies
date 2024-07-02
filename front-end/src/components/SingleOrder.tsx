@@ -33,7 +33,7 @@ function SingleOrder({
       {/* Heading */}
       <div
         className={`grid grid-cols-7 mt-2 rounded shadow text-[8px] md:text-base p-1 md:p-2  ${
-          showMore ? "bg-blue-50 font-semibold" : "bg-white"
+          showMore ? "bg-blue-300 text-white font-semibold" : "bg-white"
         }`}
       >
         <p className={`${showMore ? "col-span-3" : "col-span-2"} p-1 md:p-2`}>
@@ -64,49 +64,55 @@ function SingleOrder({
         </p>
 
         <button
-          className='p-1 md:p-2 text-blue-500 hover:text-blue-700'
+          className={`p-1 md:p-2 ${
+            showMore ? "text-red-700" : "text-blue-500"
+          } hover:text-blue-700`}
           onClick={() => setShowMore(!showMore)}
         >
           {showMore ? "close" : "view"}
         </button>
-        {/* <h2>sold by: {soldBy} </h2> */}
       </div>
-      {showMore && (
-        <>
-          <div
-            className={`grid grid-cols-8 gap-2 text-left border border-b-slate-600 font-bold bg-white text-[8px] md:text-base`}
-          >
-            <h2 className='col-span-3 p-2'>Item</h2>
-            <h2 className='p-2'>Qty</h2>
-            <h2 className='col-span-1 p-2'>Price</h2>
-            <h2 className='col-span-2 p-2'>Subtotal</h2>
-            <h2 className='p-2'>Returned</h2>
-          </div>
 
-          <div className='bg-white rounded-md shadow-md mt-1'>
-            {orderItems.map((item) => (
-              <SingleOrderItem key={item.productId} {...item} orderId={_id} />
-            ))}
-          </div>
-          <div className='bg-blue-50 text-[8px] font-semibold md:text-base grid grid-cols-4'>
-            <h2 className='p-2 col-span-2'>Sold by: {soldBy}</h2>
-            <h2 className='p-2'>
-              Total:{" "}
-              {new Intl.NumberFormat("en-NG", {
-                style: "currency",
-                currency: "NGN",
-              }).format(total)}
-            </h2>
-            <h2 className='p-2'>
-              Balance:{" "}
-              {new Intl.NumberFormat("en-NG", {
-                style: "currency",
-                currency: "NGN",
-              }).format(balance as number)}
-            </h2>
-          </div>
-        </>
-      )}
+      <section
+        className={`${
+          showMore
+            ? "h-[200px] overflow-auto ease-in-out duration-300"
+            : "h-0 overflow-hidden ease-in-out duration-300"
+        } ease-in-out duration-200`}
+      >
+        <div
+          className={`grid grid-cols-10 gap-2 text-left border border-b-slate-600 font-bold bg-white text-[8px] md:text-base`}
+        >
+          <h2 className='col-span-3 p-2'>Item</h2>
+          <h2 className='p-2'>Qty</h2>
+          <h2 className='col-span-2 p-2'>Price</h2>
+          <h2 className='col-span-2 p-2'>Subtotal</h2>
+          <h2 className=' col-span-2 p-2'>Returned</h2>
+        </div>
+
+        <div className='bg-white rounded-md shadow-md'>
+          {orderItems.map((item) => (
+            <SingleOrderItem key={item.productId} {...item} orderId={_id} />
+          ))}
+        </div>
+        <div className='bg-blue-300 text-white text-[8px] font-semibold md:text-base grid grid-cols-4'>
+          <h2 className='p-2 col-span-2'>Sold by: {soldBy}</h2>
+          <h2 className='p-2'>
+            Total:{" "}
+            {new Intl.NumberFormat("en-NG", {
+              style: "currency",
+              currency: "NGN",
+            }).format(total)}
+          </h2>
+          <h2 className='p-2'>
+            Balance:{" "}
+            {new Intl.NumberFormat("en-NG", {
+              style: "currency",
+              currency: "NGN",
+            }).format(balance as number)}
+          </h2>
+        </div>
+      </section>
     </main>
   )
 }
