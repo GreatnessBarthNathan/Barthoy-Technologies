@@ -77,7 +77,7 @@ function SingleOrder({
         className={`${
           showMore
             ? "h-[200px] overflow-auto ease-in-out duration-300"
-            : "h-0 overflow-hidden ease-in-out duration-300"
+            : "h-0 overflow-auto ease-in-out duration-300"
         } ease-in-out duration-200`}
       >
         <div
