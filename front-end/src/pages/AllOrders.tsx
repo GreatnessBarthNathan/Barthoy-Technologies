@@ -18,13 +18,13 @@ function AllOrders() {
   const [date, setDate] = useState("")
   const [displayedExpenses, setDisplayedExpenses] = useState<ExpenseType[]>([])
   const [analysis, setAnalysis] = useState({
-    // total: 0,
+    total: 0,
+    totalReturned: 0,
     grossProfit: 0,
     expenses: 0,
     netProfit: 0,
   })
 
-  console.log(orders)
   // GET ORDERS
   const getOrders = async () => {
     setLoading(true)
@@ -105,11 +105,15 @@ function AllOrders() {
   // CALCULATE PROFIT
   const calculateProfit = async () => {
     let grossProfit: number = 0
+    let totalReturned: number = 0
 
     orders.forEach((order) => {
       order.orderItems.forEach((item) => {
         if (!item.returned) {
           grossProfit += item.diff
+        }
+        if (item.returned) {
+          totalReturned += item.subTotal
         }
       })
     })
@@ -126,6 +130,7 @@ function AllOrders() {
 
     const analysis: AnalysisType = {
       total: total_order,
+      totalReturned,
       grossProfit,
       expenses,
       netProfit: grossProfit - expenses,
@@ -139,12 +144,8 @@ function AllOrders() {
   }, [])
 
   useEffect(() => {
-    let intervalID = setInterval(() => {
-      calculateProfit()
-    }, 200)
-
-    return () => clearInterval(intervalID)
-  })
+    calculateProfit()
+  }, [orders])
   return (
     <main>
       <div className='flex justify-between'>

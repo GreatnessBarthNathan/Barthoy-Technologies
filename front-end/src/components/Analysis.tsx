@@ -2,7 +2,7 @@ import { AnalysisType } from "../utils/types"
 
 function Analysis({ analysis }: { analysis: AnalysisType }) {
   return (
-    <div className='w-[50%] lg:w-[40%] text-[6px] md:text-xs lg:text-base border border-[whitesmoke] rounded bg-white mb-5'>
+    <div className='w-[50%] lg:w-[40%] text-[8px] md:text-sm lg:text-base border border-[whitesmoke] rounded bg-white mb-5'>
       <h2 className='grid grid-cols-2 gap-2 border border-b-[whitesmoke]'>
         <span className='border border-l-0 border-t-0 border-b-0 border-r-[whitesmoke] p-1'>
           TOTAL AMOUNT
@@ -12,6 +12,17 @@ function Analysis({ analysis }: { analysis: AnalysisType }) {
             style: "currency",
             currency: "NGN",
           }).format(analysis.total as number)}
+        </span>
+      </h2>
+      <h2 className='grid grid-cols-2 gap-2 border border-b-[whitesmoke]'>
+        <span className='border border-l-0 border-t-0 border-b-0 border-r-[whitesmoke] p-1'>
+          TOTAL RETURNED
+        </span>
+        <span className='p-1'>
+          {new Intl.NumberFormat("en-NG", {
+            style: "currency",
+            currency: "NGN",
+          }).format(analysis.totalReturned as number)}
         </span>
       </h2>
       <h2 className='grid grid-cols-2 gap-2 border border-b-[whitesmoke]'>

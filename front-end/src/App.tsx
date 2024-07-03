@@ -15,7 +15,6 @@ import UpdateStoreProduct from "./pages/UpdateStoreProduct"
 import AllOrders from "./pages/AllOrders"
 import CreateOrder from "./pages/CreateOrder"
 import Expenses from "./pages/Expenses"
-import SingleOrderPage from "./pages/SingleOrderPage"
 import AllCustomers from "./pages/AllCustomers"
 import CustomerActivity from "./pages/CustomerActivity"
 import Permissions from "./pages/Permissions"
@@ -66,10 +65,6 @@ const router = createBrowserRouter([
           {
             path: "orders",
             element: <AllOrders />,
-          },
-          {
-            path: "orders/:id",
-            element: <SingleOrderPage />,
           },
           {
             path: "create-product",

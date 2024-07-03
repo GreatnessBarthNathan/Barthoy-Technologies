@@ -74,7 +74,8 @@ export type ExpenseType = {
 }
 
 export type AnalysisType = {
-  total?: number
+  total: number
+  totalReturned: number
   grossProfit: number
   expenses: number
   netProfit: number

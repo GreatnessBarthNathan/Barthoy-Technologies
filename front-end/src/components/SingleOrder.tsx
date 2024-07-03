@@ -2,6 +2,10 @@ import { useState, useEffect } from "react"
 import { OrderType } from "../utils/types"
 import SingleOrderItem from "./SingleOrderItem"
 import customFetch from "../utils/customFetch"
+import OrderHeader from "./OrderHeader"
+import OrderTableHead from "./OrderTableHead"
+import OrderFooter from "./OrderFooter"
+
 function SingleOrder({
   _id,
   total,
@@ -31,87 +35,35 @@ function SingleOrder({
   return (
     <main className='mt-3'>
       {/* Heading */}
-      <div
-        className={`grid grid-cols-7 mt-2 rounded shadow text-[8px] md:text-base p-1 md:p-2  ${
-          showMore ? "bg-blue-300 text-white font-semibold" : "bg-white"
-        }`}
-      >
-        <p className={`${showMore ? "col-span-3" : "col-span-2"} p-1 md:p-2`}>
-          {showMore && "Customer: "}
-          {`${
-            customer?.firstName.length > 1
-              ? customer?.firstName + " " + customer?.lastName
-              : "Anonymous"
-          }`}
-        </p>
-        <p className='col-span-1 p-1 md:p-2'>
-          {orderItems.length} item{orderItems.length > 1 ? "s" : ""}
-        </p>
-        <p className={`col-span-2 p-1 md:p-2 ${showMore && "hidden"}`}>
-          {new Intl.NumberFormat("en-NG", {
-            style: "currency",
-            currency: "NGN",
-          }).format(total)}
-        </p>
-        <p className={`${showMore ? "col-span-2" : "col-span-1"} p-1 md:p-2`}>
-          {showMore
-            ? new Intl.DateTimeFormat(undefined, {
-                dateStyle: "long",
-              }).format(new_date)
-            : new Intl.DateTimeFormat("es", { dateStyle: "short" }).format(
-                new_date
-              )}
-        </p>
-
-        <button
-          className={`p-1 md:p-2 ${
-            showMore ? "text-red-700" : "text-blue-500"
-          } hover:text-blue-700`}
-          onClick={() => setShowMore(!showMore)}
-        >
-          {showMore ? "close" : "view"}
-        </button>
-      </div>
-
+      <OrderHeader
+        customer={customer}
+        showMore={showMore}
+        setShowMore={setShowMore}
+        orderItems={orderItems}
+        total={total}
+        new_date={new_date}
+      />
       <section
         className={`${
           showMore
-            ? "h-[200px] overflow-auto ease-in-out duration-300"
+            ? "h-[160px] md:h-[200px] overflow-auto ease-in-out duration-300"
             : "h-0 overflow-auto ease-in-out duration-300"
         } ease-in-out duration-200`}
       >
-        <div
-          className={`grid grid-cols-10 gap-2 text-left border border-b-slate-600 font-bold bg-white text-[8px] md:text-base`}
-        >
-          <h2 className='col-span-3 p-2'>Item</h2>
-          <h2 className='p-2'>Qty</h2>
-          <h2 className='col-span-2 p-2'>Price</h2>
-          <h2 className='col-span-2 p-2'>Subtotal</h2>
-          <h2 className=' col-span-2 p-2'>Returned</h2>
-        </div>
+        <OrderTableHead />
 
+        {/* BODY */}
         <div className='bg-white rounded-md shadow-md'>
           {orderItems.map((item) => (
             <SingleOrderItem key={item.productId} {...item} orderId={_id} />
           ))}
         </div>
-        <div className='bg-blue-300 text-white text-[8px] font-semibold md:text-base grid grid-cols-4'>
-          <h2 className='p-2 col-span-2'>Sold by: {soldBy}</h2>
-          <h2 className='p-2'>
-            Total:{" "}
-            {new Intl.NumberFormat("en-NG", {
-              style: "currency",
-              currency: "NGN",
-            }).format(total)}
-          </h2>
-          <h2 className='p-2'>
-            Balance:{" "}
-            {new Intl.NumberFormat("en-NG", {
-              style: "currency",
-              currency: "NGN",
-            }).format(balance as number)}
-          </h2>
-        </div>
+
+        <OrderFooter
+          soldBy={soldBy}
+          total={total}
+          balance={balance as number}
+        />
       </section>
     </main>
   )
