@@ -38,14 +38,16 @@ function PayDebt() {
   // HANDLE SUBMIT
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
+    setSubmitting("submitting")
     try {
       await customFetch.patch(`/order/${id}`, { balance: inputs.currentDebt })
       toast.success("payment added")
       navigate("/dashboard/customers")
+      setSubmitting("")
     } catch (error) {
       if (axios.isAxiosError(error)) {
         toast.error(error?.response?.data?.msg)
+        setSubmitting("")
       }
     }
   }
