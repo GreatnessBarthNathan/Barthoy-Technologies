@@ -145,7 +145,7 @@ function AllOrders() {
 
   useEffect(() => {
     calculateProfit()
-  }, [orders])
+  }, [orders, displayedExpenses, date])
   return (
     <main>
       <div className='flex justify-between'>
