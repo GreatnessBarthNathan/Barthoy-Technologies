@@ -1,7 +1,7 @@
 import { useDashboardContext } from "../pages/DashboardLayout"
 import PageLink from "./PageLinks"
 import { FaSitemap, FaShoppingBasket, FaTimes } from "react-icons/fa"
-import { MdSettings, MdOutlineCreateNewFolder } from "react-icons/md"
+import { MdSettings, MdOutlineCreateNewFolder, MdHistory } from "react-icons/md"
 import { CgProfile } from "react-icons/cg"
 import { CiShoppingCart } from "react-icons/ci"
 import { AiFillAppstore } from "react-icons/ai"
@@ -47,6 +47,7 @@ const SmallSidebar = () => {
               />
               <PageLink url={`store`} text='Store' icon={<AiFillAppstore />} />
               <PageLink url='expenses' text='Expenses' icon={<GiExpense />} />
+              <PageLink url='history' text='History' icon={<MdHistory />} />
               <PageLink
                 url='customers'
                 text='Customers'

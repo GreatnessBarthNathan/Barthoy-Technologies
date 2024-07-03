@@ -20,6 +20,8 @@ import CustomerActivity from "./pages/CustomerActivity"
 import Permissions from "./pages/Permissions"
 import CreateExpense from "./pages/CreateExpense"
 import Profile from "./pages/Profile"
+import History from "./pages/History"
+import PayDebt from "./pages/PayDebt"
 
 // loaders
 import { loader as dashboardLoader } from "./pages/DashboardLayout"
@@ -30,6 +32,7 @@ import { loader as updateStoreProductLoader } from "./pages/UpdateStoreProduct"
 import { loader as createOrderLoader } from "./pages/CreateOrder"
 import { loader as customersLoader } from "./pages/AllCustomers"
 import { loader as customerActivityLoader } from "./pages/CustomerActivity"
+import { loader as payDebtLoader } from "./pages/PayDebt"
 
 const router = createBrowserRouter([
   {
@@ -105,6 +108,11 @@ const router = createBrowserRouter([
             loader: customerActivityLoader,
           },
           {
+            path: "pay-debt/:id",
+            element: <PayDebt />,
+            loader: payDebtLoader,
+          },
+          {
             path: "permissions",
             element: <Permissions />,
           },
@@ -115,6 +123,10 @@ const router = createBrowserRouter([
           {
             path: "create-expense",
             element: <CreateExpense />,
+          },
+          {
+            path: "history",
+            element: <History />,
           },
           {
             path: "profile",

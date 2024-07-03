@@ -120,28 +120,6 @@ export const returnItem = async (req: AuthenticatedRequest, res: Response) => {
   const order = await Order.findOne({ _id: orderId })
   if (!order) throw new NotFoundError("Order does not exist")
 
-  // for (let item of order.orderItems) {
-  //   const targetItem = order.orderItems.find(
-  //     (item) => String(item._id) === itemId
-  //   )
-
-  //   if (!targetItem) throw new NotFoundError("Item does not exist")
-
-  //   if (targetItem.returned)
-  //     throw new UnauthenticatedError("Item already returned")
-
-  //   if (item === targetItem) {
-  //     const product = await Product.findOne({ _id: targetItem.productId })
-  //     if (!product) throw new NotFoundError("Product not found")
-  //     product.qty += targetItem.pcs
-  //     await Product.findOneAndUpdate(
-  //       { _id: product._id },
-  //       { qty: product.qty },
-  //       { new: true, runValidators: true }
-  //     )
-  //   }
-  // }
-
   order.orderItems.forEach(async (item) => {
     const targetItem = order.orderItems.find(
       (item) => String(item._id) === itemId
@@ -179,6 +157,19 @@ export const returnItem = async (req: AuthenticatedRequest, res: Response) => {
   res.status(StatusCodes.OK).json({ msg: "Item returned & Inventory updated" })
 }
 
+// UPDATE ORDER
+export const updateOrder = async (req: AuthenticatedRequest, res: Response) => {
+  const order = await Order.findById(req.params.id)
+  if (!order) throw new NotFoundError("order not found")
+
+  await Order.findByIdAndUpdate(
+    req.params.id,
+    { ...req.body },
+    { runValidators: true, new: true }
+  )
+  res.status(StatusCodes.OK).json({ msg: "order updated" })
+}
+
 // CALCULATE PROFIT
 export const getProfit = async (req: AuthenticatedRequest, res: Response) => {
   let grossProfit: number = 0
@@ -195,14 +186,6 @@ export const getProfit = async (req: AuthenticatedRequest, res: Response) => {
       }
     }
   }
-
-  // orders.forEach((order) => {
-  //   order.orderItems.forEach((item) => {
-  //     if (!item.returned) {
-  //       grossProfit += item.diff
-  //     }
-  //   })
-  // })
 
   const expenses = await Expense.find({})
   const totalExpenses = expenses.reduce((total, value) => {

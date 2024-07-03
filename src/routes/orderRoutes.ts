@@ -6,6 +6,7 @@ import {
   returnItem,
   singleOrder,
   getProfit,
+  updateOrder,
 } from "../controllers/orderControllers"
 
 const router = Router()
@@ -17,6 +18,8 @@ router.get("/", getAllOrders)
 router.get("/return-item", returnItem)
 
 router.get("/profit", getProfit)
+
+router.patch("/:id", updateOrder)
 
 router.delete("/:id", deleteOrder)
 

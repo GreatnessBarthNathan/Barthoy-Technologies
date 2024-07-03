@@ -89,6 +89,7 @@ function SingleCustomerActivity({
           soldBy={soldBy}
           total={total}
           balance={balance as number}
+          _id={_id}
         />
       </section>
     </main>

@@ -2,6 +2,7 @@ import { OrderItemsType } from "../utils/types"
 import { BsArrowReturnLeft } from "react-icons/bs"
 import customFetch from "../utils/customFetch"
 import { toast } from "react-toastify"
+import { useDashboardContext } from "../pages/DashboardLayout"
 
 function SingleOrderItem({
   name,
@@ -13,6 +14,9 @@ function SingleOrderItem({
   orderId,
   _id,
 }: OrderItemsType) {
+  const { currentUser } = useDashboardContext()
+
+  // RETURN ITEM
   const returnItem = async (orderId: string, id: string) => {
     const {
       data: { product },
@@ -63,7 +67,7 @@ function SingleOrderItem({
         <button
           onClick={() => returnItem(orderId as string, productId as string)}
         >
-          <BsArrowReturnLeft />
+          {currentUser.role === "admin" && <BsArrowReturnLeft />}
         </button>
       </div>
     </div>
