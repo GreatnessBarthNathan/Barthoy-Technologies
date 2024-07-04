@@ -20,6 +20,7 @@ const UserSchema = new mongoose_1.default.Schema({
     branch: String,
     userName: {
         type: String,
+        unique: true,
         required: true,
         minlength: 3,
         maxlength: 20,

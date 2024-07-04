@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getProfit = exports.returnItem = exports.deleteOrder = exports.singleOrder = exports.getAllOrders = exports.createOrder = void 0;
+exports.getProfit = exports.updateOrder = exports.returnItem = exports.deleteOrder = exports.singleOrder = exports.getAllOrders = exports.createOrder = void 0;
 const customErrors_1 = require("../errors/customErrors");
 const orderModel_1 = __importDefault(require("../models/orderModel"));
 const productModel_1 = __importDefault(require("../models/productModel"));
@@ -66,7 +66,7 @@ const getAllOrders = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     //   const orders = await Order.find({})
     //   res.status(StatusCodes.OK).json({ count: orders.length, orders })
     // }
-    const orders = yield orderModel_1.default.find({});
+    const orders = yield orderModel_1.default.find({}).sort({ enteredAt: -1 });
     res.status(http_status_codes_1.StatusCodes.OK).json({ count: orders.length, orders });
 });
 exports.getAllOrders = getAllOrders;
@@ -111,24 +111,6 @@ const returnItem = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     const order = yield orderModel_1.default.findOne({ _id: orderId });
     if (!order)
         throw new customErrors_1.NotFoundError("Order does not exist");
-    // for (let item of order.orderItems) {
-    //   const targetItem = order.orderItems.find(
-    //     (item) => String(item._id) === itemId
-    //   )
-    //   if (!targetItem) throw new NotFoundError("Item does not exist")
-    //   if (targetItem.returned)
-    //     throw new UnauthenticatedError("Item already returned")
-    //   if (item === targetItem) {
-    //     const product = await Product.findOne({ _id: targetItem.productId })
-    //     if (!product) throw new NotFoundError("Product not found")
-    //     product.qty += targetItem.pcs
-    //     await Product.findOneAndUpdate(
-    //       { _id: product._id },
-    //       { qty: product.qty },
-    //       { new: true, runValidators: true }
-    //     )
-    //   }
-    // }
     order.orderItems.forEach((item) => __awaiter(void 0, void 0, void 0, function* () {
         const targetItem = order.orderItems.find((item) => String(item._id) === itemId);
         if (!targetItem)
@@ -153,6 +135,15 @@ const returnItem = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     res.status(http_status_codes_1.StatusCodes.OK).json({ msg: "Item returned & Inventory updated" });
 });
 exports.returnItem = returnItem;
+// UPDATE ORDER
+const updateOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const order = yield orderModel_1.default.findById(req.params.id);
+    if (!order)
+        throw new customErrors_1.NotFoundError("order not found");
+    yield orderModel_1.default.findByIdAndUpdate(req.params.id, Object.assign({}, req.body), { runValidators: true, new: true });
+    res.status(http_status_codes_1.StatusCodes.OK).json({ msg: "order updated" });
+});
+exports.updateOrder = updateOrder;
 // CALCULATE PROFIT
 const getProfit = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _d;
@@ -167,13 +158,6 @@ const getProfit = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             }
         }
     }
-    // orders.forEach((order) => {
-    //   order.orderItems.forEach((item) => {
-    //     if (!item.returned) {
-    //       grossProfit += item.diff
-    //     }
-    //   })
-    // })
     const expenses = yield expensesModel_1.default.find({});
     const totalExpenses = expenses.reduce((total, value) => {
         total += value.amount;

@@ -51,9 +51,6 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     const { firstName, lastName, userName } = req.body;
     if (!firstName || !lastName || !userName)
         throw new customErrors_1.BadRequestError("Please provide all values");
-    // const existingUser = await User.findOne({ userName })
-    // if (existingUser)
-    //   throw new BadRequestError("Username already taken. Select another")
     const user = yield userModel_1.default.findOne({ _id: req.params.id });
     if (!user)
         throw new customErrors_1.NotFoundError(`No user found with id: ${req.params.id}`);

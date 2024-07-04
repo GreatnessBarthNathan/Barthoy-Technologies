@@ -61,7 +61,6 @@ if (process.env.NODE_ENV === "development") {
     app.use((0, morgan_1.default)("dev"));
 }
 app.use(express_1.default.static(path_1.default.resolve(__dirname, "./public")));
-// app.use(express.static("./public"))
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
 app.use((0, helmet_1.default)());
