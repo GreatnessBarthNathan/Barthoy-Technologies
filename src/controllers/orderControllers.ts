@@ -70,7 +70,7 @@ export const getAllOrders = async (
   //   const orders = await Order.find({})
   //   res.status(StatusCodes.OK).json({ count: orders.length, orders })
   // }
-  const orders = await Order.find({})
+  const orders = await Order.find({}).sort({ enteredAt: -1 })
   res.status(StatusCodes.OK).json({ count: orders.length, orders })
 }
 
