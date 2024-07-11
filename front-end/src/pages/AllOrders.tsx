@@ -12,7 +12,7 @@ import { AnalysisType } from "../utils/types"
 import Analysis from "../components/Analysis"
 
 function AllOrders() {
-  const { currentUser, fetchOrders, fetchExpenses } = useDashboardContext()
+  const { fetchOrders, fetchExpenses } = useDashboardContext()
   const [orders, setOrders] = useState<OrderType[]>([])
   const [loading, setLoading] = useState(false)
   const [date, setDate] = useState("")
@@ -150,7 +150,7 @@ function AllOrders() {
     <main>
       <div className='flex justify-between'>
         <h1 className='md:text-2xl lg:text-4xl mb-1 mt-5'>Orders</h1>
-        {currentUser.role === "admin" && <Analysis analysis={analysis} />}
+        <Analysis analysis={analysis} />
       </div>
       <section className='pb-5'>
         <div className='bg-white p-2 rounded-md py-3 shadow'>
