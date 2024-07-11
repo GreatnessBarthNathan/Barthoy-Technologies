@@ -160,7 +160,6 @@ function UpdateProduct() {
               type='number'
               required
               value={targetProduct.add}
-              min={0}
               className={`border capitalize border-blue-200 w-full rounded p-2 mt-1 outline-0`}
               onChange={(e) =>
                 setTargetProduct({
