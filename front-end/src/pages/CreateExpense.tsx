@@ -53,7 +53,7 @@ function CreateExpense() {
               id='description'
               cols={30}
               rows={5}
-              className='border border-blue-200 w-full rounded p-2 mt-1 outline-0'
+              className='border w-full rounded p-2 mt-1 outline-0'
               onChange={(e) =>
                 setInputs({ ...inputs, description: e.target.value })
               }
@@ -62,7 +62,7 @@ function CreateExpense() {
 
           <button
             type='submit'
-            className={`text-xs md:text-sm lg:text-base bg-blue-500 p-3 rounded text-white hover:bg-blue-700 ease-in-out duration-300 self-end ${
+            className={`text-xs md:text-sm lg:text-base bg-[var(--primary)] p-3 rounded text-white hover:bg-[var(--hoverColor)] ease-in-out duration-300 self-end ${
               isSubmitting === "submitting" && "cursor-wait"
             }`}
           >
