@@ -57,7 +57,7 @@ function History() {
 
     newOrders.forEach((order) => {
       order.orderItems.forEach((item) => {
-        if (item.name === product) {
+        if (item.name === product && !item.returned) {
           emptyArray.push(item)
         }
       })
