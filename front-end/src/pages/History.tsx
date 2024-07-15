@@ -84,24 +84,28 @@ function History() {
             productNames={productNames}
           />
         </div>
-        <div className='flex items-center justify-between mt-5 text-[9px] md:text-sm lg:text-base px-2'>
-          <h1>
-            Appeared in{" "}
-            <span className='text-blue-800 font-semibold'>
-              {orders.length} Order{orders.length > 1 && "s"}
-            </span>{" "}
-            for <span className='text-blue-800 font-semibold'>{date}</span>
-          </h1>
+        {orders.length > 0 && (
+          <div className='flex items-center justify-between mt-5 text-[9px] md:text-sm lg:text-base px-2'>
+            <h1>
+              Appeared in{" "}
+              <span className='text-blue-800 font-semibold'>
+                {orders.length} Order{orders.length > 1 && "s"}
+              </span>{" "}
+              for <span className='text-blue-800 font-semibold'>{date}</span>
+            </h1>
 
-          <h1 className='text-blue-800 font-bold'>Qty Sold: {totalSold}</h1>
-        </div>
+            <h1 className='text-blue-800 font-bold'>Qty Sold: {totalSold}</h1>
+          </div>
+        )}
         {loading ? (
           <Loading />
         ) : (
           <>
             {/* HEADER */}
             {orders.length < 1 ? (
-              <h1 className='text-center font-bold'>No orders available</h1>
+              <h1 className='text-center font-semibold mt-10'>
+                No orders found. Enter product and date to get history
+              </h1>
             ) : (
               <>
                 <div>
