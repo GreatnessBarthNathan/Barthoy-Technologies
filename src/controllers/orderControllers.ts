@@ -53,23 +53,6 @@ export const getAllOrders = async (
   req: AuthenticatedRequest,
   res: Response
 ) => {
-  // const { from, to } = req.query
-  // const queryObject: { enteredAt: { $gte: string; $lte: string } } = {
-  //   enteredAt: {
-  //     $gte: dayjs(new Date(Date.now())).format("YYYY-MM-DD"),
-  //     $lte: dayjs(new Date(Date.now())).format("YYYY-MM-DD"),
-  //   },
-  // }
-
-  // if (from && to) {
-  //   queryObject.enteredAt = { $gte: from as string, $lte: to as string }
-  //   const orders = await Order.find(queryObject)
-  //   res.status(StatusCodes.OK).json({ count: orders.length, orders })
-  //   return
-  // } else {
-  //   const orders = await Order.find({})
-  //   res.status(StatusCodes.OK).json({ count: orders.length, orders })
-  // }
   const orders = await Order.find({}).sort({ enteredAt: -1 })
   res.status(StatusCodes.OK).json({ count: orders.length, orders })
 }

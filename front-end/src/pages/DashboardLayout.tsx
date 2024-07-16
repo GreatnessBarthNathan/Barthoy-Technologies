@@ -21,6 +21,7 @@ type ValueTypes = {
   fetchOrders: () => Promise<OrderType[]>
   showSidebar: boolean
   setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>
+  fetchUsers: () => Promise<UserTypes[]>
 }
 
 export const loader = async () => {
@@ -47,6 +48,7 @@ const DashboardContext = createContext<ValueTypes | undefined>(undefined)
 function DashboardLayout() {
   const { user: currentUser, products: allProducts } =
     useLoaderData() as CombinedTypes
+
   const [submitting] = useState(false)
   const [products, setProducts] = useState<ProductTypes[]>([])
   const [showSidebar, setShowSidebar] = useState(false)
@@ -55,6 +57,21 @@ function DashboardLayout() {
 
   const navigation = useNavigation()
   const isLoading = navigation.state === "loading"
+
+  // FETCH USERS
+  const fetchUsers = async () => {
+    try {
+      const {
+        data: { users },
+      } = await customFetch.get("/user")
+      return users
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast.error(error?.response?.data?.msg)
+        return
+      }
+    }
+  }
 
   // FETCH EXPENSES
   const fetchExpenses = async () => {
@@ -129,6 +146,7 @@ function DashboardLayout() {
     fetchOrders,
     setShowSidebar,
     showSidebar,
+    fetchUsers,
   }
   return (
     <>

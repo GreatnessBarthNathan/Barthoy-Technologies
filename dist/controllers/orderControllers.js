@@ -50,22 +50,6 @@ const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.createOrder = createOrder;
 // GET ALL ORDERS
 const getAllOrders = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    // const { from, to } = req.query
-    // const queryObject: { enteredAt: { $gte: string; $lte: string } } = {
-    //   enteredAt: {
-    //     $gte: dayjs(new Date(Date.now())).format("YYYY-MM-DD"),
-    //     $lte: dayjs(new Date(Date.now())).format("YYYY-MM-DD"),
-    //   },
-    // }
-    // if (from && to) {
-    //   queryObject.enteredAt = { $gte: from as string, $lte: to as string }
-    //   const orders = await Order.find(queryObject)
-    //   res.status(StatusCodes.OK).json({ count: orders.length, orders })
-    //   return
-    // } else {
-    //   const orders = await Order.find({})
-    //   res.status(StatusCodes.OK).json({ count: orders.length, orders })
-    // }
     const orders = yield orderModel_1.default.find({}).sort({ enteredAt: -1 });
     res.status(http_status_codes_1.StatusCodes.OK).json({ count: orders.length, orders });
 });

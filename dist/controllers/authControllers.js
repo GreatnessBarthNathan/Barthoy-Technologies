@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.logout = exports.login = exports.register = void 0;
+exports.forgotPassword = exports.logout = exports.login = exports.register = void 0;
 const customErrors_1 = require("../errors/customErrors");
 const userModel_1 = __importDefault(require("../models/userModel"));
 const auth_1 = require("../utils/auth");
@@ -26,6 +26,11 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const existingUser = yield userModel_1.default.findOne({ userName });
     if (existingUser) {
         throw new customErrors_1.BadRequestError("user already exist");
+    }
+    const isFirstUser = (yield userModel_1.default.countDocuments({})) === 0;
+    if (isFirstUser) {
+        req.body.role = "admin";
+        req.body.approved = "true";
     }
     req.body.password = yield (0, auth_1.encode)(password);
     yield userModel_1.default.create(req.body);
@@ -44,6 +49,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         _id: userExists._id,
         userName: userExists.userName,
         role: userExists.role,
+        approved: userExists.approved,
     };
     const token = (0, tokenUtils_1.createJwt)(payload);
     const oneDay = 1000 * 60 * 60 * 24;
@@ -63,4 +69,20 @@ const logout = (req, res) => {
     res.status(http_status_codes_1.StatusCodes.OK).json({ msg: "Logged out..." });
 };
 exports.logout = logout;
+// FORGOT PASSWORD
+const forgotPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userName, password, confirmPassword } = req.body;
+    if (!userName || !password || !confirmPassword)
+        throw new customErrors_1.BadRequestError("Please provide all values");
+    if (password !== confirmPassword)
+        throw new customErrors_1.BadRequestError("Passwords must match");
+    const user = yield userModel_1.default.findOne({ userName });
+    if (!user)
+        throw new customErrors_1.NotFoundError("User does not exist. Create account.");
+    const newPassword = yield (0, auth_1.encode)(password);
+    user.password = newPassword;
+    yield user.save();
+    res.status(http_status_codes_1.StatusCodes.OK).json({ msg: "Password changed. Login to account" });
+});
+exports.forgotPassword = forgotPassword;
 //# sourceMappingURL=authControllers.js.map

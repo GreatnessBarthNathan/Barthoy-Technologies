@@ -1,10 +1,11 @@
 export type UserTypes = {
   firstName: string
   lastName: string
-  branch: string
-  userName: string
+  branch?: string
+  userName?: string
   role?: string
   _id?: string
+  approved?: boolean
 }
 
 export type ProductTypes = {
