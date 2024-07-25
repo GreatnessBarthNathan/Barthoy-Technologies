@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent } from "react"
+import { useState, FormEvent } from "react"
 import FormRow from "../components/FormRow"
 import customFetch from "../utils/customFetch"
 import axios from "axios"
@@ -6,15 +6,16 @@ import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
 
 function CreateExpense() {
-  const [inputs, setInputs] = useState({ description: "", amount: 0 })
   const [isSubmitting, setIsSubmitting] = useState("")
   const navigate = useNavigate()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    const data = Object.fromEntries(formData)
     setIsSubmitting("submitting")
     try {
-      await customFetch.post("/expense", inputs)
+      await customFetch.post("/expense", data)
       toast.success("Expense record saved")
       setIsSubmitting("")
       navigate("/dashboard/expenses")
@@ -40,10 +41,19 @@ function CreateExpense() {
             name='amount'
             min={0}
             required
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setInputs({ ...inputs, amount: Number(e.target.value) })
-            }
           />
+          <div className='mt-2 text-xs md:text-sm lg:text-base'>
+            <label htmlFor='remark' className='block'>
+              Transaction Type
+            </label>
+            <select
+              name='transactionType'
+              className='border  w-full rounded p-2 mt-1 outline-0'
+            >
+              <option value='cash'>cash</option>
+              <option value='bank'>bank</option>
+            </select>
+          </div>
           <div className='mt-2 text-xs md:text-sm lg:text-base'>
             <label htmlFor='description' className='block'>
               Description
@@ -54,9 +64,6 @@ function CreateExpense() {
               cols={30}
               rows={5}
               className='border w-full rounded p-2 mt-1 outline-0'
-              onChange={(e) =>
-                setInputs({ ...inputs, description: e.target.value })
-              }
             ></textarea>
           </div>
 

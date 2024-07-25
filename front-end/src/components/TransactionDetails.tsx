@@ -4,7 +4,7 @@ function TransactionDetails() {
   const {
     total,
     cash,
-    bank,
+    // bank,
     transaction,
     balance,
     setCash,
@@ -34,7 +34,7 @@ function TransactionDetails() {
           type='tel'
           maxLength={11}
           placeholder='customer phone number'
-          className='w-full p-1 '
+          className='w-full p-1'
           onChange={findCustomer}
         />
         <input
@@ -66,7 +66,7 @@ function TransactionDetails() {
             min={0}
             value={cash}
             onChange={(e) => setCash(Number(e.target.value))}
-            className='border'
+            className='border outline-none'
           />
         </div>
         {/* BANK */}
@@ -76,9 +76,9 @@ function TransactionDetails() {
             type='number'
             name='bank'
             min={0}
-            value={bank}
+            // value={bank}
             onChange={(e) => setBank(Number(e.target.value))}
-            className='border'
+            className='border outline-none'
           />
         </div>
         <div
