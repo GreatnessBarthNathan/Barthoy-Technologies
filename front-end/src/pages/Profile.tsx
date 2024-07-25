@@ -22,7 +22,6 @@ const Profile = () => {
     try {
       await customFetch.patch(`/user/update-user/${currentUser._id}`, inputs)
       toast.success("profile updated")
-      // navigate("/dashboard/orders")
       location.reload()
     } catch (error) {
       if (axios.isAxiosError(error)) {

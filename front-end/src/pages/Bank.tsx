@@ -17,6 +17,7 @@ function Bank() {
   const [totalBank, setTotalBank] = useState(0)
   const [bankBalance, setBankBalance] = useState(0)
 
+  console.log(bank)
   // GET BANK
   const getBank = async () => {
     setLoading(true)

@@ -207,13 +207,10 @@ function CreateOrder() {
       0
     )
     setTotal(orderTotal)
-    setCash(orderTotal)
-    setBank(total - cash)
-
+ 
     // calculate the diff for items
     orderItems.forEach((item) => {
       item.diff = item.subTotal - item.cost * item.pcs
-      // return item
     })
   }
 
@@ -227,7 +224,6 @@ function CreateOrder() {
   const getBalance = () => {
     if (transaction === "cash") {
       setBalance(0)
-      // setBank(total - cash)
     } else {
       setBalance(total - (cash + bank))
     }

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --primary: rgb(55, 55, 194);
+  --primary: darkblue;
   --hoverColor: lightblue;
   --bgColor: white;
   --textSecondary: darkslategray;

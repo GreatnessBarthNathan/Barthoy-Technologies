@@ -3,7 +3,7 @@ import { useCreateOrderContext } from "../pages/CreateOrder"
 function TransactionDetails() {
   const {
     total,
-    cash,
+    // cash,
     // bank,
     transaction,
     balance,
@@ -34,7 +34,7 @@ function TransactionDetails() {
           type='tel'
           maxLength={11}
           placeholder='customer phone number'
-          className='w-full p-1'
+          className='w-full p-1 '
           onChange={findCustomer}
         />
         <input
@@ -59,12 +59,12 @@ function TransactionDetails() {
         </div>
         {/* CASH */}
         <div className='grid grid-cols-2'>
-          <span>CASH</span>
+          <span>Cash</span>
           <input
             type='number'
             name='cash'
             min={0}
-            value={cash}
+            // value={cash}
             onChange={(e) => setCash(Number(e.target.value))}
             className='border outline-none'
           />
@@ -88,7 +88,7 @@ function TransactionDetails() {
         >
           {/* BALANCE*/}
           <div className='grid grid-cols-2'>
-            <h2>BALANCE</h2>
+            <h2>Balance</h2>
             <span>
               {" "}
               {new Intl.NumberFormat("en-NG", {

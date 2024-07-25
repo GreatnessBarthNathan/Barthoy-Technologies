@@ -94,7 +94,7 @@ function Expenses() {
 
       <SearchExpenseForm searchExpenses={searchExpenses} />
 
-      <div className='flex justify-between items-center text-[8px] md:xs lg:text-base bg-white p-1 rounded shadow-sm'>
+      <div className='flex justify-between items-center text-[8px] md:xs lg:text-base bg-[var(--bgColor)] p-1 rounded shadow-sm'>
         <h2>
           Showing{" "}
           <span className='text-blue-800 font-semibold'>
