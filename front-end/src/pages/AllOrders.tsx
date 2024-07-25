@@ -17,12 +17,14 @@ function AllOrders() {
   const [loading, setLoading] = useState(false)
   const [date, setDate] = useState("")
   const [displayedExpenses, setDisplayedExpenses] = useState<ExpenseType[]>([])
-  const [analysis, setAnalysis] = useState({
+  const [analysis, setAnalysis] = useState<AnalysisType>({
     total: 0,
     totalReturned: 0,
     grossProfit: 0,
     expenses: 0,
     netProfit: 0,
+    totalCash: 0,
+    totalBank: 0,
   })
 
   // GET ORDERS
@@ -123,13 +125,22 @@ function AllOrders() {
       return total
     }, 0)
 
-    const total_order = orders.reduce((total, order) => {
-      total += order.total
-      return total
-    }, 0)
+    const totals = orders.reduce(
+      (total, order) => {
+        total.totalOrders += order.total
 
+        if (order.cash !== undefined) total.totalCash += order.cash
+
+        if (order.bank !== undefined) total.totalBank += order.bank
+
+        return total
+      },
+      { totalOrders: 0, totalCash: 0, totalBank: 0 }
+    )
     const analysis: AnalysisType = {
-      total: total_order,
+      total: totals.totalOrders,
+      totalBank: totals.totalBank,
+      totalCash: totals.totalCash,
       totalReturned,
       grossProfit,
       expenses,

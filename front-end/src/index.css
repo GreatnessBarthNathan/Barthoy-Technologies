@@ -48,7 +48,7 @@ body {
   width: 70px;
   height: 70px;
   margin: auto;
-  border: 5px solid var(--red);
+  border: 5px solid var(--primary);
   border-top-color: white;
   border-radius: 50%;
   animation: spinner 0.5s linear infinite;

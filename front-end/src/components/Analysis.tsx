@@ -18,6 +18,28 @@ function Analysis({ analysis }: { analysis: AnalysisType }) {
       </h2>
       <h2 className='grid grid-cols-2 gap-2 border border-b-[whitesmoke]'>
         <span className='border border-l-0 border-t-0 border-b-0 border-r-[whitesmoke] p-1'>
+          CASH
+        </span>
+        <span className='p-1'>
+          {new Intl.NumberFormat("en-NG", {
+            style: "currency",
+            currency: "NGN",
+          }).format(analysis.totalCash as number)}
+        </span>
+      </h2>
+      <h2 className='grid grid-cols-2 gap-2 border border-b-[whitesmoke]'>
+        <span className='border border-l-0 border-t-0 border-b-0 border-r-[whitesmoke] p-1'>
+          BANK
+        </span>
+        <span className='p-1'>
+          {new Intl.NumberFormat("en-NG", {
+            style: "currency",
+            currency: "NGN",
+          }).format(analysis.totalBank as number)}
+        </span>
+      </h2>
+      <h2 className='grid grid-cols-2 gap-2 border border-b-[whitesmoke]'>
+        <span className='border border-l-0 border-t-0 border-b-0 border-r-[whitesmoke] p-1'>
           TOTAL RETURNED
         </span>
         <span className='p-1'>

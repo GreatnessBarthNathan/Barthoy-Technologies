@@ -6,7 +6,13 @@ import SmallSidebar from "../components/SmallSidebar"
 import Navbar from "../components/Navbar"
 import Loading from "../components/Loading"
 import customFetch from "../utils/customFetch"
-import { ProductTypes, OrderType, ExpenseType, UserTypes } from "../utils/types"
+import {
+  ProductTypes,
+  OrderType,
+  ExpenseType,
+  UserTypes,
+  TransactionType,
+} from "../utils/types"
 import axios from "axios"
 import { toast } from "react-toastify"
 
@@ -22,6 +28,8 @@ type ValueTypes = {
   showSidebar: boolean
   setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>
   fetchUsers: () => Promise<UserTypes[]>
+  fetchCash: () => Promise<TransactionType[]>
+  fetchBank: () => Promise<TransactionType[]>
 }
 
 export const loader = async () => {
@@ -88,6 +96,34 @@ function DashboardLayout() {
     }
   }
 
+  // FETCH CASH
+  const fetchCash = async () => {
+    try {
+      const {
+        data: { cash },
+      } = await customFetch.get("/cash")
+      return cash
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast.error(error?.response?.data?.msg)
+      }
+    }
+  }
+
+  // FETCH BANK
+  const fetchBank = async () => {
+    try {
+      const {
+        data: { bank },
+      } = await customFetch.get("/bank")
+      return bank
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast.error(error?.response?.data?.msg)
+      }
+    }
+  }
+
   // GET PRODUCTS
   const getProducts = async () => {
     try {
@@ -147,6 +183,8 @@ function DashboardLayout() {
     setShowSidebar,
     showSidebar,
     fetchUsers,
+    fetchCash,
+    fetchBank,
   }
   return (
     <>
