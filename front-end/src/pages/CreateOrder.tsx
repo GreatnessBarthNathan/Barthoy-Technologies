@@ -91,6 +91,7 @@ function CreateOrder() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+  console.log(cash, bank)
   const navigate = useNavigate()
   const { customers } = useLoaderData() as CustomerTypeArray
 
@@ -207,7 +208,7 @@ function CreateOrder() {
       0
     )
     setTotal(orderTotal)
- 
+
     // calculate the diff for items
     orderItems.forEach((item) => {
       item.diff = item.subTotal - item.cost * item.pcs
