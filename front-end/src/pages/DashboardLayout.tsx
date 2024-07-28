@@ -30,6 +30,7 @@ type ValueTypes = {
   fetchUsers: () => Promise<UserTypes[]>
   fetchCash: () => Promise<TransactionType[]>
   fetchBank: () => Promise<TransactionType[]>
+
 }
 
 export const loader = async () => {
@@ -185,6 +186,7 @@ function DashboardLayout() {
     fetchUsers,
     fetchCash,
     fetchBank,
+   
   }
   return (
     <>
